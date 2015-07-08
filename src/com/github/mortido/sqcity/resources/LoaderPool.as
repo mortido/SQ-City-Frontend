@@ -1,4 +1,4 @@
-package com.github.mortido.sqcity.ui
+package com.github.mortido.sqcity.resources
 {
     public class LoaderPool
     {

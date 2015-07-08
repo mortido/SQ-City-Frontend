@@ -7,7 +7,7 @@ package com.github.mortido.sqcity.ui
     import as3isolib.geom.Pt;
     import as3isolib.graphics.Stroke;
     
-    import com.github.mortido.sqcity.Assets;
+    import com.github.mortido.sqcity.resources.Assets;
     
     import flash.display.Bitmap;
     import flash.display.Loader;
@@ -25,6 +25,11 @@ package com.github.mortido.sqcity.ui
         * City tile size before isometric transoframtion.
         */
         private static const CELL_SIZE: Number = 50;
+
+        /**
+        * Field size in tiles.
+        */
+        private static const FIELD_SIZE: Number = 9; 
 
         /**
         * Isometric scene object.
@@ -53,7 +58,7 @@ package com.github.mortido.sqcity.ui
             // Show grid in debug only.
             CONFIG::DEBUG {
                 var grid:IsoGrid = new IsoGrid();
-                grid.setGridSize(9, 9, 1);
+                grid.setGridSize(FIELD_SIZE, FIELD_SIZE, 1);
                 grid.gridlines = new Stroke(1, 0xeeeeee);
                 grid.showOrigin = false;
                 grid.cellSize = CELL_SIZE;
