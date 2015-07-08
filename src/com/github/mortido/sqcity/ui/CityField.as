@@ -1,4 +1,4 @@
-package ui
+package com.github.mortido.sqcity.ui
 {
     import as3isolib.display.IsoSprite;
     import as3isolib.display.IsoView;
@@ -7,6 +7,9 @@ package ui
     import as3isolib.geom.Pt;
     import as3isolib.graphics.Stroke;
     
+    import com.github.mortido.sqcity.Assets;
+    
+    import flash.display.Bitmap;
     import flash.display.Loader;
     import flash.display.Sprite;
     import flash.events.Event;
@@ -18,13 +21,28 @@ package ui
     */
     public class CityField extends Sprite
     {
+        /**
+        * City tile size before isometric transoframtion.
+        */
         private static const CELL_SIZE: Number = 50;
 
+        /**
+        * Isometric scene object.
+        * Contains city tiles and field.
+        */
         private var scene:IsoScene;
+
+        /**
+        * Isometric view which used to show isoScene.
+        */
         private var view:IsoView;
 
-        // Point for view scrolling.
+        /**
+        * Point for view scrolling.
+        */
         private var panPt:Pt;
+        
+        private var bitmap:Bitmap;
 
         public function CityField(width:Number, height:Number)
         {
@@ -42,6 +60,12 @@ package ui
                 scene.addChild(grid);
             }
 
+            
+            
+            
+            
+            
+            
             //////////////////
             var l:Loader = new Loader();
             l.load(new URLRequest("../../../sqtest/field.jpg"));
@@ -50,12 +74,14 @@ package ui
             
             var l2:Loader = new Loader();
             l2.load(new URLRequest("../../../sqtest/factory.png"));
-            
+            l2.contentLoaderInfo.addEventListener(Event.COMPLETE, oncmplte, false, 0 ,true);
             l2.y= -52;
             l2.x = -109;
-            
+            bitmap = new Assets.StubImage();
+            bitmap.y=-52;
+            bitmap.x=-109;
             var s:IsoSprite = new IsoSprite();
-            s.sprites = [l, l2];
+            s.sprites = [l, bitmap];
             scene.addChild(s);
 
 
@@ -73,14 +99,16 @@ package ui
             
             
             view.addEventListener(MouseEvent.MOUSE_DOWN, onStartPan, false, 0, true);
-            
             addChild(view);
-            
             addEventListener(Event.ENTER_FRAME, onFrame, false, 0 , true);
         }
         
+        protected function oncmplte(event:Event):void
+        {
+            // TODO Auto-generated method stub
+            bitmap.bitmapData =event.target.content.bitmapData;
+        }
         
-
         protected function onFrame(event:Event):void
         {
             scene.render();
