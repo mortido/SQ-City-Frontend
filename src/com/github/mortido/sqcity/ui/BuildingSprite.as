@@ -1,61 +1,24 @@
 package com.github.mortido.sqcity.ui
 {
-    import flash.display.Sprite;
-    
-    public class BuildingSprite extends Sprite
+    import as3isolib.display.IsoSprite;
+
+    import com.github.mortido.sqcity.Game;
+    import com.github.mortido.sqcity.models.Building;
+
+    public class BuildingSprite extends IsoSprite
     {
-        private var _fieldX : Number;
-        private var _fieldY : Number;
-
-        /**
-        * Represent building type (e.g. "factory").
-        */
-        private var _type:String;
-
-        public function BuildingSprite(buildingType:String)
+        public function BuildingSprite(model:Building)
         {
             super();
-            
-            _type = buildingType;
-            
-            // TODO List:
-            // Field width and length <- from building Type.
-            // Child Bitmap.
-            // Bitmap reference point (x, y).
-            
-            // Click not on sprite, but use grid... maybe we shood pass this event from field.
-            
-            // TODO List 2:
-            // Show status.
-            // Show production buttons (if exist).
-            // Production button click handler.
-            // Sell button?
-            // Click handler depends on state (pattern).
+            _model = model;
+            sprites = [Game.instance.resourceManager.createBitmap(getResourceId())];
         }
-        
-        public function get type(): String
+
+        private var _model:Building;
+
+        private function getResourceId():String
         {
-            return _type;
-        }
-        
-        public function get fieldX(): Number
-        {
-            return _fieldX;
-        }
-        
-        public function get fieldY(): Number
-        {
-            return _fieldY;
-        }
-        
-        public function set fieldX(x:Number) : void
-        {
-            _fieldX = x;
-        }
-        
-        public function set fieldX(y:Number) : void
-        {
-            _fieldY = y;
+            return "@image/building/" + _model.type.name;
         }
     }
 }

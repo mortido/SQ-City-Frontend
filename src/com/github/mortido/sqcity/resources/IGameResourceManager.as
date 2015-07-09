@@ -4,6 +4,6 @@ package com.github.mortido.sqcity.resources
 
     public interface IGameResourceManager
     {
-        function createBitmap(id:String) : Bitmap;
+        function createBitmap(id:String):Bitmap;
     }
 }
