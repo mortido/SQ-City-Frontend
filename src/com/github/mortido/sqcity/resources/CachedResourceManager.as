@@ -11,9 +11,10 @@ package com.github.mortido.sqcity.resources
 
         public function createBitmap(id:String):Bitmap
         {
+            // TODO: check existence.
             var ii:ImageInfo = Game.instance.config.imageInfos[id];
 
-            // Check cache.
+            // TODO: Check cache.
 
             var bitmap:Bitmap = new Assets.StubImage();
             bitmap.x = -ii.referenceX;
