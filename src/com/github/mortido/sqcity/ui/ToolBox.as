@@ -11,6 +11,9 @@ package com.github.mortido.sqcity.ui
     import flash.events.MouseEvent;
     import flash.filters.ColorMatrixFilter;
     import flash.filters.DropShadowFilter;
+    
+    import com.greensock.*;
+    import com.greensock.easing.*;
 
     public class ToolBox extends Sprite
     {
@@ -54,8 +57,8 @@ package com.github.mortido.sqcity.ui
             // Create main container.
             mainContainer = new Sprite();
 
-            addChild(toggleButton);
             addChild(mainContainer);
+            addChild(toggleButton);
             addEventListener(Event.ADDED_TO_STAGE, onAddedToStage, false, 0, true);
             toggleButton.addEventListener(MouseEvent.CLICK, toggleToolbox, false, 0, true);
         }
@@ -65,11 +68,13 @@ package com.github.mortido.sqcity.ui
             if (isOpened)
             {
                 isOpened = false;
-                y += TOOLBOX_HEIGHT + 1;
+                TweenLite.to(toggleButton, 0.65, {y:-TOGGLE_BTN_OFFSET, ease:Back.easeIn});
+                TweenLite.to(mainContainer, 0.65, {y:0, ease:Circ.easeIn});
             }
             else
             {
-                y -= TOOLBOX_HEIGHT + 1;
+                TweenLite.to(toggleButton, 0.65, {y:-TOOLBOX_HEIGHT-1, ease:Back.easeOut});
+                TweenLite.to(mainContainer, 0.65, {y:-TOOLBOX_HEIGHT-1, ease:Circ.easeOut});
                 isOpened = true;
             }
 
