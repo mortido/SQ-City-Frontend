@@ -29,5 +29,4 @@ package com.github.mortido.sqcity.resources
             return bitmap;
         }
     }
-
 }

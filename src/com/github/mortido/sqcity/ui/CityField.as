@@ -4,7 +4,6 @@ package com.github.mortido.sqcity.ui
     import as3isolib.display.IsoView;
     import as3isolib.display.scene.IsoGrid;
     import as3isolib.display.scene.IsoScene;
-    import as3isolib.geom.IsoMath;
     import as3isolib.geom.Pt;
     import as3isolib.graphics.Stroke;
 
@@ -12,7 +11,6 @@ package com.github.mortido.sqcity.ui
     import com.github.mortido.sqcity.models.Building;
 
     import flash.display.Bitmap;
-    import flash.display.DisplayObjectContainer;
     import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.MouseEvent;

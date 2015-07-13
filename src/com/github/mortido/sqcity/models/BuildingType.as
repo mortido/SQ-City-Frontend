@@ -2,11 +2,11 @@ package com.github.mortido.sqcity.models
 {
     public class BuildingType
     {
-        public function BuildingType(coinsModifier:Number,
-                                     energyModifier:Number,
-                                     populationModifier:Number,
-                                     xSize:Number,
-                                     ySize:Number,
+        public function BuildingType(coinsModifier:int,
+                                     energyModifier:int,
+                                     populationModifier:int,
+                                     xSize:uint,
+                                     ySize:uint,
                                      name:String,
                                      productions:Vector.<Production>)
         {
@@ -19,35 +19,35 @@ package com.github.mortido.sqcity.models
             _productions = productions;
         }
 
-        private var _coinsModifier:Number;
-        private var _energyModifier:Number;
-        private var _populationModifier:Number;
-        private var _xSize:Number;
-        private var _ySize:Number;
+        private var _coinsModifier:int;
+        private var _energyModifier:int;
+        private var _populationModifier:int;
+        private var _xSize:uint;
+        private var _ySize:uint;
         private var _name:String;
         private var _productions:Vector.<Production>;
 
-        public function get coinsModifier():Number
+        public function get coinsModifier():int
         {
             return _coinsModifier;
         }
 
-        public function get energyModifier():Number
+        public function get energyModifier():int
         {
             return _energyModifier;
         }
 
-        public function get populationModifier():Number
+        public function get populationModifier():int
         {
             return _populationModifier;
         }
 
-        public function get xSize():Number
+        public function get xSize():uint
         {
             return _xSize;
         }
 
-        public function get ySize():Number
+        public function get ySize():uint
         {
             return _ySize;
         }
@@ -60,6 +60,11 @@ package com.github.mortido.sqcity.models
         public function get productions():Vector.<Production>
         {
             return _productions;
+        }
+
+        public function getResourceId():String
+        {
+            return "@image/building/" + _name;
         }
     }
 }

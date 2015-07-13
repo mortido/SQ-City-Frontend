@@ -5,32 +5,32 @@ package com.github.mortido.sqcity.models
 
     public class GameResources extends EventDispatcher
     {
-        public function GameResources(coins:Number, energy:Number, population:Number)
+        public function GameResources(coins:int, energy:int, population:int)
         {
             _coins = coins;
             _energy = energy;
             _population = population;
         }
-        private var _coins:Number;
-        private var _energy:Number;
-        private var _population:Number;
+        private var _coins:int;
+        private var _energy:int;
+        private var _population:int;
 
-        public function get coins():Number
+        public function get coins():int
         {
             return _coins;
         }
 
-        public function get energy():Number
+        public function get energy():int
         {
             return _energy;
         }
 
-        public function get population():Number
+        public function get population():int
         {
             return _population;
         }
 
-        public function add(coins:Number, energy:Number, population:Number):void
+        public function add(coins:int, energy:int, population:int):void
         {
             _coins += coins;
             _energy += energy;
