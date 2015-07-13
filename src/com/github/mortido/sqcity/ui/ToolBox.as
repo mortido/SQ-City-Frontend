@@ -26,16 +26,7 @@ package com.github.mortido.sqcity.ui
         private static var BUILDING_BTN_HEIGHT:Number = 80;
         private static var BUILDING_BTN_OFFSET:Number = 30;
 
-        private static var TOOLBOX_COLOR:uint = 0xe0e0d2;
-        private static var TOOLBOX_BORDER_COLOR:uint = 0xbab9ae;
-        private static var MOVE_BTN_COLOR:uint = 0x4c6fe0;
-        private static var MOVE_BTN_TEXT_COLOR:uint = 0xfff5d1;
-        private static var SELL_BTN_COLOR:uint = 0xe0b14c;
-        private static var SELL_BTN_TEXT_COLOR:uint = 0xd1e7ff;
-
         private var toggleButton:SimpleButton;
-        private var moveButton:SimpleButton;
-        private var sellButton:SimpleButton;
         private var mainContainer:Sprite;
         private var isOpened:Boolean;
 
@@ -53,12 +44,22 @@ package com.github.mortido.sqcity.ui
             addChild(toggleButton);
 
             // Create move and sell buttons.
-            moveButton = new TextButton(Assets.getStringResource("@string/move_btn_text"), ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT, MOVE_BTN_TEXT_COLOR, MOVE_BTN_COLOR);
+            var moveButton:TextButton = new TextButton(
+                    Assets.getStringResource("@string/move_btn_text"),
+                    ACTION_BTN_WIDTH,
+                    ACTION_BTN_HEIGHT,
+                    Assets.getColor("@color/move_btn_text"),
+                    Assets.getColor("@color/move_btn"));
             moveButton.x = ACTION_BTN_OFFSET;
             moveButton.y = ACTION_BTN_OFFSET;
             mainContainer.addChild(moveButton);
 
-            sellButton = new TextButton(Assets.getStringResource("@string/sell_btn_text"), ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT, SELL_BTN_TEXT_COLOR, SELL_BTN_COLOR);
+            var sellButton:TextButton = new TextButton(
+                    Assets.getStringResource("@string/sell_btn_text"),
+                    ACTION_BTN_WIDTH,
+                    ACTION_BTN_HEIGHT,
+                    Assets.getColor("@color/sell_btn_text"),
+                    Assets.getColor("@color/sell_btn"));
             sellButton.x = ACTION_BTN_OFFSET;
             sellButton.y = ACTION_BTN_OFFSET * 2 + ACTION_BTN_HEIGHT;
             mainContainer.addChild(sellButton);
@@ -67,7 +68,7 @@ package com.github.mortido.sqcity.ui
             var xIncrement:Number = ACTION_BTN_OFFSET + ACTION_BTN_WIDTH + BUILDING_BTN_OFFSET;
             for (var key:String in buildingTypes)
             {
-                var btn:BuildingButton = new BuildingButton(buildingTypes[key], BUILDING_BTN_WIDTH, BUILDING_BTN_HEIGHT);
+                var btn:BuildingButton = new BuildingButton(buildingTypes[key], BUILDING_BTN_WIDTH, BUILDING_BTN_HEIGHT, true);
                 btn.y = ACTION_BTN_OFFSET;
                 btn.x = xIncrement;
                 mainContainer.addChild(btn);
@@ -99,9 +100,9 @@ package com.github.mortido.sqcity.ui
         {
             removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
-            mainContainer.graphics.beginFill(TOOLBOX_BORDER_COLOR, 0.8);
+            mainContainer.graphics.beginFill(Assets.getColor("@color/windows_border"), 0.8);
             mainContainer.graphics.drawRect(0, 0, stage.stageWidth, 1);
-            mainContainer.graphics.beginFill(TOOLBOX_COLOR, 0.8);
+            mainContainer.graphics.beginFill(Assets.getColor("@color/windows_background"), 0.8);
             mainContainer.graphics.drawRect(0, 1, stage.stageWidth, TOOLBOX_HEIGHT);
             mainContainer.graphics.endFill();
 

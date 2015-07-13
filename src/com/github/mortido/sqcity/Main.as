@@ -9,6 +9,8 @@ package com.github.mortido.sqcity
     import com.github.mortido.sqcity.models.Production;
     import com.github.mortido.sqcity.resources.CachedResourceManager;
     import com.github.mortido.sqcity.ui.CityField;
+    import com.github.mortido.sqcity.ui.ResourceLabel;
+    import com.github.mortido.sqcity.ui.ResourceWindow;
     import com.github.mortido.sqcity.ui.ToolBox;
 
     import flash.display.Sprite;
@@ -63,6 +65,7 @@ package com.github.mortido.sqcity
             addChild(new CityField(stage.stageWidth, stage.stageHeight));
 
             // TODO: Add resource window.
+            addChild(new ResourceWindow());
 
             // TODO: Add contracts window.
 

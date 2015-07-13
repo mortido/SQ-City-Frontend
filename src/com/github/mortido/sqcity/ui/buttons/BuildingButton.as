@@ -3,20 +3,26 @@ package com.github.mortido.sqcity.ui.buttons
     import com.github.mortido.sqcity.Game;
     import com.github.mortido.sqcity.models.BuildingType;
     import com.github.mortido.sqcity.resources.IGameResourceManager;
+    import com.github.mortido.sqcity.ui.ResourceLabel;
     import com.github.mortido.sqcity.ui.VisualEffects;
 
     import flash.display.Bitmap;
     import flash.display.Shape;
     import flash.display.SimpleButton;
+    import flash.display.Sprite;
+    import flash.events.MouseEvent;
 
-    public class BuildingButton extends SimpleButton
+    public class BuildingButton extends Sprite
     {
-        public function BuildingButton(buildingType:BuildingType, width:Number, height:Number, scale:Number = 0.5)
+        private var up:Bitmap;
+        private var button:SimpleButton;
+
+        public function BuildingButton(buildingType:BuildingType, width:Number, height:Number, showModifiers = false, scale:Number = 0.5)
         {
             var rm:IGameResourceManager = Game.instance.resourceManager;
             _buildingType = buildingType;
 
-            var up:Bitmap = rm.createBitmap(buildingType.getResourceId());
+            up = rm.createBitmap(buildingType.getResourceId());
             var over:Bitmap = rm.createBitmap(buildingType.getResourceId());
             var down:Bitmap = rm.createBitmap(buildingType.getResourceId());
 
@@ -34,8 +40,23 @@ package com.github.mortido.sqcity.ui.buttons
             hitArea.graphics.drawRect(0, 0, width, height);
             hitArea.graphics.endFill();
 
-            super(up, over, down, hitArea);
+            if (showModifiers)
+            {
+                addChild(new ResourceLabel(_buildingType.coinsModifier, _buildingType.energyModifier, _buildingType.populationModifier, 9));
+            }
+
+            button = new SimpleButton(up, over, down, hitArea);
+            addChild(button);
+
+            addEventListener(MouseEvent.CLICK, click);
         }
+
+        private function click(event:MouseEvent):void
+        {
+            up.filters = VisualEffects.DISABLED_BUTTON_FILTERS;
+            button.enabled = false;
+        }
+
         private var _buildingType:BuildingType;
 
         public function get buildingType():BuildingType
