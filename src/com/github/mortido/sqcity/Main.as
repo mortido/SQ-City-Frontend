@@ -9,14 +9,12 @@ package com.github.mortido.sqcity
     import com.github.mortido.sqcity.models.Production;
     import com.github.mortido.sqcity.resources.CachedResourceManager;
     import com.github.mortido.sqcity.ui.CityField;
-    import com.github.mortido.sqcity.ui.ResourceLabel;
     import com.github.mortido.sqcity.ui.ResourceWindow;
     import com.github.mortido.sqcity.ui.ToolBox;
 
     import flash.display.Sprite;
     import flash.display.StageAlign;
     import flash.display.StageScaleMode;
-    import flash.events.Event;
 
     [SWF(width="800", height="500", backgroundColor="0x00aa22", frameRate="30")]
     public class Main extends Sprite
@@ -27,11 +25,11 @@ package com.github.mortido.sqcity
             stage.align = StageAlign.TOP_LEFT;
             stage.scaleMode = StageScaleMode.NO_SCALE;
 
-            // Show Login screen.
+            // TODO:Show Login screen.
 
             // TODO: STUB.
             var config:Config = new Config();
-            config.imageInfos["@image/field"] = new ImageInfo("../../../Dropbox/Public/sq/field.jpg", 539, 74);
+            config.imageInfos["@image/field"] = new ImageInfo("../../../Dropbox/Public/sq/field.jpg", 539+150, 74+100);
             config.imageInfos["@image/building/factory"] = new ImageInfo("../../../Dropbox/Public/sq/factory.png", 109, 52);
             config.imageInfos["@image/building/house"] = new ImageInfo("../../../Dropbox/Public/sq/house.png", 60, 38);
             config.imageInfos["@image/building/wind_power"] = new ImageInfo("../../../Dropbox/Public/sq/wind_power.png", 52, 76);
@@ -43,7 +41,7 @@ package com.github.mortido.sqcity
             config.buildingTypes["wind_power"] = new BuildingType(-50, 50, 0, 1, 1, "wind_power", new <Production>[]);
             var buildings:Vector.<Building> = new <Building>[
                 new Building(5,0,1,config.buildingTypes["factory"]),
-                new Building(0,0,2,config.buildingTypes["house"]),
+                new Building(0,1,2,config.buildingTypes["house"]),
                 new Building(7,6,3,config.buildingTypes["wind_power"])];
             var resources:GameResources = new GameResources(100, 100, 100);
 
@@ -64,12 +62,12 @@ package com.github.mortido.sqcity
             // Create City Field.
             addChild(new CityField(stage.stageWidth, stage.stageHeight));
 
-            // TODO: Add resource window.
+            // Add resource window.
             addChild(new ResourceWindow());
 
             // TODO: Add contracts window.
 
-            // TODO: Add build panel.
+            // Add build panel.
             var tb:ToolBox = new ToolBox();
             tb.y = stage.stageHeight;
             addChild(tb);

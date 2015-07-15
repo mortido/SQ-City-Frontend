@@ -17,7 +17,7 @@ package com.github.mortido.sqcity.ui.buttons
         private var up:Bitmap;
         private var button:SimpleButton;
 
-        public function BuildingButton(buildingType:BuildingType, width:Number, height:Number, showModifiers = false, scale:Number = 0.5)
+        public function BuildingButton(buildingType:BuildingType, width:Number, height:Number, showModifiers:Boolean = false, scale:Number = 0.5)
         {
             var rm:IGameResourceManager = Game.instance.resourceManager;
             _buildingType = buildingType;
@@ -42,7 +42,7 @@ package com.github.mortido.sqcity.ui.buttons
 
             if (showModifiers)
             {
-                addChild(new ResourceLabel(_buildingType.coinsModifier, _buildingType.energyModifier, _buildingType.populationModifier, 9));
+                addChild(new ResourceLabel(_buildingType.coinsModifier, _buildingType.energyModifier, _buildingType.populationModifier, 9, true));
             }
 
             button = new SimpleButton(up, over, down, hitArea);

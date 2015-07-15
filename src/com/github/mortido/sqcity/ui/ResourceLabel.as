@@ -24,12 +24,14 @@ package com.github.mortido.sqcity.ui
         private var coinsFormat:TextFormat;
         private var energyFormat:TextFormat;
         private var populationFormat:TextFormat;
+        private var _modifiersMode:Boolean;
 
-        public function ResourceLabel(coins:int = 0, energy:int = 0, population:int = 0, textSize:Number = 15)
+        public function ResourceLabel(coins:int = 0, energy:int = 0, population:int = 0, textSize:Number = 15, showPlus:Boolean = false)
         {
             _coins = coins;
             _energy = energy;
             _population = population;
+            _modifiersMode = showPlus;
 
             defaultFormat = new TextFormat("helvetica", textSize, Assets.getColor("@color/resource_delimiter"), true);
             coinsFormat = new TextFormat("helvetica", textSize, Assets.getColor("@color/coins"), true);
@@ -42,14 +44,7 @@ package com.github.mortido.sqcity.ui
             _textField.selectable = false;
             addChild(_textField);
 
-            addEventListener(MouseEvent.CLICK, toggleToolbox, false, 0, true);
-
             update();
-        }
-
-        private function toggleToolbox(event:MouseEvent):void
-        {
-            this.coins /= 10;
         }
 
         private var _population:int;
@@ -65,11 +60,30 @@ package com.github.mortido.sqcity.ui
             update();
         }
 
+        private function formatValue(value:int):String
+        {
+            if (_modifiersMode)
+            {
+                if (value == 0)
+                {
+                    return " - ";
+                }
+
+                if (value > 0)
+                {
+                    return "+" + value.toString();
+                }
+            }
+
+            return value.toString();
+        }
+
         private function update():void
         {
-            var coinsStr:String = _coins.toString();
-            var energyStr:String = _energy.toString();
-            var populationStr:String = _population.toString();
+            var coinsStr:String = formatValue(_coins);
+            var energyStr:String = formatValue(_energy);
+            var populationStr:String = formatValue(_population);
+
             _textField.text = coinsStr + DELIMITER + energyStr + DELIMITER + populationStr;
             var p1:int = 0;
             var p2:int = coinsStr.length;
