@@ -13,8 +13,6 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
 
     public class BuildingIsoSprite extends IsoSprite
     {
-        private var image:Sprite;
-
         public function BuildingIsoSprite(model:Building)
         {
             super();
@@ -34,9 +32,21 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
             container.mouseEnabled = false;
             image.mouseEnabled = image.mouseChildren = false;
 
-            setSize(_model.type.xSize * GameField.CELL_SIZE, _model.type.ySize* GameField.CELL_SIZE,1)
+            setSize(_model.type.xSize * GameField.CELL_SIZE, _model.type.ySize * GameField.CELL_SIZE, 1)
 
             sprites = [image, hitArea];
+        }
+        private var image:Sprite;
+        private var _model:Building;
+
+        public function get model():Building
+        {
+            return _model;
+        }
+
+        public function update():void
+        {
+            //TODO: update status bar.
         }
 
         private function onMouseUp(event:MouseEvent):void
@@ -63,17 +73,6 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
         {
             // TODO: if ready for production - show menu (hide on stage click, and many other cases...)
             // TODO: if production is ready - harvest.
-        }
-
-        public function update():void
-        {
-            //TODO: update status bar.
-        }
-
-        private var _model:Building;
-        public function get model():Building
-        {
-            return _model;
         }
     }
 }

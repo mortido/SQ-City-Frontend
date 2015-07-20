@@ -7,10 +7,8 @@ package com.github.mortido.sqcity.resources
     import flash.display.BitmapData;
     import flash.display.Loader;
     import flash.display.LoaderInfo;
-    import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.IOErrorEvent;
-    import flash.geom.Rectangle;
     import flash.net.URLRequest;
     import flash.utils.Dictionary;
 
@@ -54,8 +52,8 @@ package com.github.mortido.sqcity.resources
                 pendingQueue[ii.url] = queue;
                 var loader:Loader = LoaderPool.instance.checkout();
                 var loadInfo:Object = {};
-                loadInfo[URL_KEY]=ii.url;
-                loadInfo[RETRY_KEY]=0;
+                loadInfo[URL_KEY] = ii.url;
+                loadInfo[RETRY_KEY] = 0;
                 activeLoaders[loader] = loadInfo;
                 loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeLoadHandler);
                 loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, errorLoadHandler);

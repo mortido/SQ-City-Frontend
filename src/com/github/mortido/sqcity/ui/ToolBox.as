@@ -1,7 +1,6 @@
 package com.github.mortido.sqcity.ui
 {
     import com.github.mortido.sqcity.GameState;
-    import com.github.mortido.sqcity.models.BuildingType;
     import com.github.mortido.sqcity.resources.Assets;
     import com.github.mortido.sqcity.ui.buttons.BuildingButton;
     import com.github.mortido.sqcity.ui.buttons.CircleButton;
@@ -27,11 +26,6 @@ package com.github.mortido.sqcity.ui
         private static var BUILDING_BTN_WIDTH:Number = 50;
         private static var BUILDING_BTN_HEIGHT:Number = 80;
         private static var BUILDING_BTN_OFFSET:Number = 30;
-
-        private var toggleButton:SimpleButton;
-        private var mainContainer:Sprite;
-        private var isOpened:Boolean;
-        private var _gameField:GameField;
 
         public function ToolBox(gameField:GameField)
         {
@@ -73,7 +67,7 @@ package com.github.mortido.sqcity.ui
             for (var key:String in buildingTypes)
             {
                 var btn:BuildingButton = new BuildingButton(buildingTypes[key], BUILDING_BTN_WIDTH, BUILDING_BTN_HEIGHT, true);
-                btn.addEventListener(MouseEvent.CLICK, onBuildNewClick,false,0,true);
+                btn.addEventListener(MouseEvent.CLICK, onBuildNewClick, false, 0, true);
                 btn.y = ACTION_BTN_OFFSET;
                 btn.x = xIncrement;
                 mainContainer.addChild(btn);
@@ -83,6 +77,10 @@ package com.github.mortido.sqcity.ui
             addEventListener(Event.ADDED_TO_STAGE, onAddedToStage, false, 0, true);
             toggleButton.addEventListener(MouseEvent.CLICK, toggleToolbox, false, 0, true);
         }
+        private var toggleButton:SimpleButton;
+        private var mainContainer:Sprite;
+        private var isOpened:Boolean;
+        private var _gameField:GameField;
 
         private function onBuildNewClick(event:MouseEvent):void
         {

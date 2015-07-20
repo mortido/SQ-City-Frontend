@@ -11,11 +11,6 @@ package com.github.mortido.sqcity.events
 
     public class LoginEvent extends Event
     {
-        private var _buildings:Vector.<Building>;
-        private var _username:String;
-        private var _resources:GameResources;
-        private var _config:Config;
-
         public function LoginEvent(buildings:Vector.<Building>,
                                    username:String,
                                    resources:GameResources,
@@ -30,6 +25,10 @@ package com.github.mortido.sqcity.events
             _resources = resources;
             _config = config;
         }
+        private var _buildings:Vector.<Building>;
+        private var _username:String;
+        private var _resources:GameResources;
+        private var _config:Config;
 
         public function get buildings():Vector.<Building>
         {

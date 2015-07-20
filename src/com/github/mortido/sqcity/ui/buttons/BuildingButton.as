@@ -12,9 +12,6 @@ package com.github.mortido.sqcity.ui.buttons
 
     public class BuildingButton extends Sprite
     {
-        private var up:Sprite;
-        private var button:SimpleButton;
-
         public function BuildingButton(buildingType:BuildingType, width:Number, height:Number, showModifiers:Boolean = false, scale:Number = 0.5)
         {
             var rm:IGameResourceManager = GameState.instance.resourceManager;
@@ -46,19 +43,20 @@ package com.github.mortido.sqcity.ui.buttons
             button = new SimpleButton(up, over, down, hitArea);
             addChild(button);
         }
-
-        public function set enabled(value:Boolean):void
-        {
-            button.enabled = value;
-            up.filters = value ? [] : VisualEffects.DISABLED_BUTTON_FILTERS;
-        }
+        private var up:Sprite;
+        private var button:SimpleButton;
+        private var _buildingType:BuildingType;
 
         public function get enabled():Boolean
         {
             return button.enabled;
         }
 
-        private var _buildingType:BuildingType;
+        public function set enabled(value:Boolean):void
+        {
+            button.enabled = value;
+            up.filters = value ? [] : VisualEffects.DISABLED_BUTTON_FILTERS;
+        }
 
         public function get buildingType():BuildingType
         {

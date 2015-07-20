@@ -62,6 +62,16 @@ package com.github.mortido.sqcity
             _config = value;
         }
 
+        public function get buildings():Vector.<Building>
+        {
+            return _buildings;
+        }
+
+        public function set buildings(buildings:Vector.<Building>):void
+        {
+            _buildings = buildings;
+        }
+
         public function buildNew(x:int, y:int, type:BuildingType):Building
         {
             // TODO: Check resources.
@@ -107,16 +117,6 @@ package com.github.mortido.sqcity
             // TODO: Add production to building.
             // TODO: Set finish time.
             // TODO: Send request to server.
-        }
-
-        public function set buildings(buildings:Vector.<Building>):void
-        {
-            _buildings = buildings;
-        }
-
-        public function get buildings():Vector.<Building>
-        {
-            return _buildings;
         }
     }
 }

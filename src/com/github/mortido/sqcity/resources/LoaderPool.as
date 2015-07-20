@@ -16,6 +16,7 @@ package com.github.mortido.sqcity.resources
 
             return _instance;
         }
+
         private var _freeLoaders:Vector.<Loader> = new Vector.<Loader>();
         private var _activeLoaders:Dictionary = new Dictionary();
 

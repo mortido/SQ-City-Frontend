@@ -2,8 +2,6 @@ package com.github.mortido.sqcity.ui.gamefield
 {
     import as3isolib.display.IsoSprite;
     import as3isolib.display.IsoView;
-    import as3isolib.display.renderers.DefaultSceneLayoutRenderer;
-    import as3isolib.display.renderers.SimpleSceneLayoutRenderer;
     import as3isolib.display.scene.IsoGrid;
     import as3isolib.display.scene.IsoScene;
     import as3isolib.geom.Pt;
@@ -11,10 +9,8 @@ package com.github.mortido.sqcity.ui.gamefield
 
     import com.github.mortido.sqcity.GameState;
     import com.github.mortido.sqcity.models.Building;
-    import com.github.mortido.sqcity.ui.*;
     import com.github.mortido.sqcity.ui.gamefield.isosprites.BuildingIsoSprite;
 
-    import flash.display.Bitmap;
     import flash.display.Sprite;
     import flash.events.Event;
     import flash.geom.Point;
@@ -118,6 +114,16 @@ package com.github.mortido.sqcity.ui.gamefield
          */
         private var _placementMatrix:Vector.<Vector.<BuildingIsoSprite>>;
 
+        internal function get placementMatrix():Vector.<Vector.<BuildingIsoSprite>>
+        {
+            return _placementMatrix;
+        }
+
+        internal function get view():IsoView
+        {
+            return _view;
+        }
+
         public function setState(value:FieldState):void
         {
             if (_state)
@@ -132,16 +138,6 @@ package com.github.mortido.sqcity.ui.gamefield
         public function isInRange(x:int, y:int):Boolean
         {
             return x >= 0 && x < FIELD_SIZE && y >= 0 && y < FIELD_SIZE;
-        }
-
-        internal function get placementMatrix():Vector.<Vector.<BuildingIsoSprite>>
-        {
-            return _placementMatrix;
-        }
-
-        internal function get view():IsoView
-        {
-            return _view;
         }
 
         internal function addToPlacementMatrix(bs:BuildingIsoSprite):void

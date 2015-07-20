@@ -7,6 +7,16 @@ package com.github.mortido.sqcity.ui.gamefield
         private var _field:GameField;
         private var _view:IsoView;
 
+        protected function get field():GameField
+        {
+            return _field;
+        }
+
+        protected function get view():IsoView
+        {
+            return _view;
+        }
+
         public function setup(cityField:GameField):void
         {
             _field = cityField;
@@ -17,16 +27,6 @@ package com.github.mortido.sqcity.ui.gamefield
         {
             _field = null;
             _view = null;
-        }
-
-        protected function get field():GameField
-        {
-            return _field;
-        }
-
-        protected function get view():IsoView
-        {
-            return _view;
         }
     }
 }

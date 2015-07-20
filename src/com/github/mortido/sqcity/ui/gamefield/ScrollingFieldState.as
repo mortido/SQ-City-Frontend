@@ -6,6 +6,11 @@ package com.github.mortido.sqcity.ui.gamefield
     public class ScrollingFieldState extends BaseFieldState
     {
 
+        /**
+         * Point for view scrolling.
+         */
+        private var panPt:Point;
+
         override public function setup(cityField:GameField):void
         {
             super.setup(cityField);
@@ -20,11 +25,6 @@ package com.github.mortido.sqcity.ui.gamefield
 
             super.release();
         }
-
-        /**
-         * Point for view scrolling.
-         */
-        private var panPt:Point;
 
         private function onStartPan(e:MouseEvent):void
         {

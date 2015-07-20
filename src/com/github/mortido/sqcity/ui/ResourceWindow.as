@@ -8,7 +8,6 @@ package com.github.mortido.sqcity.ui
 
     public class ResourceWindow extends Sprite
     {
-        private var label:ResourceLabel;
         private static var LABEL_OFFSET:Number = 6;
 
         public function ResourceWindow()
@@ -21,6 +20,7 @@ package com.github.mortido.sqcity.ui
             addChild(label);
             update();
         }
+        private var label:ResourceLabel;
 
         private function update():void
         {

@@ -5,21 +5,17 @@ package com.github.mortido.sqcity.ui.gamefield
 
     import com.github.mortido.sqcity.GameState;
     import com.github.mortido.sqcity.models.Building;
-
     import com.github.mortido.sqcity.models.BuildingType;
     import com.github.mortido.sqcity.resources.Assets;
-    import com.github.mortido.sqcity.ui.gamefield.isosprites.BuildingIsoSprite;
     import com.github.mortido.sqcity.ui.Tile;
+    import com.github.mortido.sqcity.ui.gamefield.isosprites.BuildingIsoSprite;
 
     import flash.events.Event;
-
     import flash.events.MouseEvent;
     import flash.geom.Point;
 
     public class BuildNewFieldState extends BaseFieldState
     {
-
-        private var _buildingType:BuildingType;
 
         public function BuildNewFieldState(buildingType:BuildingType)
         {
@@ -36,6 +32,11 @@ package com.github.mortido.sqcity.ui.gamefield
             buildingScene = new IsoScene();
             buildingScene.addChild(guideSprite)
         }
+        private var _buildingType:BuildingType;
+        private var fittedTile:Tile;
+        private var notFittedTile:Tile;
+        private var guideSprite:IsoSprite;
+        private var buildingScene:IsoScene;
 
         override public function setup(cityField:GameField):void
         {
@@ -45,12 +46,6 @@ package com.github.mortido.sqcity.ui.gamefield
             view.addEventListener(MouseEvent.CLICK, onBuild, false, 0, true);
             view.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true);
             view.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true);
-        }
-
-        private function onMouseOver(event:MouseEvent):void
-        {
-            // Prevent mouse over handlers.
-            //event.stopImmediatePropagation();
         }
 
         override public function release():void
@@ -63,35 +58,7 @@ package com.github.mortido.sqcity.ui.gamefield
             super.release();
         }
 
-        private var fittedTile:Tile;
-        private var notFittedTile:Tile;
-        private var guideSprite:IsoSprite;
-        private var buildingScene:IsoScene;
-
-        private function onMouseMove(event:MouseEvent):void
-        {
-            // Prevent mouse move handlers.
-            //event.stopImmediatePropagation();
-
-            var tile:Point = field.globalToTile(event.stageX, event.stageY);
-
-            if (!isNewBuildingInRange(tile.x, tile.y))
-            {
-                // Hide guide sprites.
-                fittedTile.visible = false;
-                notFittedTile.visible = false;
-            }
-            else
-            {
-                // Check placement.
-                var fitted:Boolean = checkPlacement(tile.x, tile.y);
-                fittedTile.visible = fitted;
-                notFittedTile.visible = !fitted;
-                guideSprite.moveTo(tile.x * GameField.CELL_SIZE, tile.y * GameField.CELL_SIZE, 0);
-            }
-        }
-
-        private function isNewBuildingInRange(x:int, y:int): Boolean
+        private function isNewBuildingInRange(x:int, y:int):Boolean
         {
             for (var i:int = 0; i < _buildingType.xSize; i++)
             {
@@ -124,6 +91,35 @@ package com.github.mortido.sqcity.ui.gamefield
             return true;
         }
 
+        private function onMouseOver(event:MouseEvent):void
+        {
+            // Prevent mouse over handlers.
+            //event.stopImmediatePropagation();
+        }
+
+        private function onMouseMove(event:MouseEvent):void
+        {
+            // Prevent mouse move handlers.
+            //event.stopImmediatePropagation();
+
+            var tile:Point = field.globalToTile(event.stageX, event.stageY);
+
+            if (!isNewBuildingInRange(tile.x, tile.y))
+            {
+                // Hide guide sprites.
+                fittedTile.visible = false;
+                notFittedTile.visible = false;
+            }
+            else
+            {
+                // Check placement.
+                var fitted:Boolean = checkPlacement(tile.x, tile.y);
+                fittedTile.visible = fitted;
+                notFittedTile.visible = !fitted;
+                guideSprite.moveTo(tile.x * GameField.CELL_SIZE, tile.y * GameField.CELL_SIZE, 0);
+            }
+        }
+
         private function onBuild(event:MouseEvent):void
         {
             // Prevent click handlers.
@@ -138,13 +134,13 @@ package com.github.mortido.sqcity.ui.gamefield
                 return;
             }
 
-            if(!checkPlacement(tile.x,tile.y))
+            if (!checkPlacement(tile.x, tile.y))
             {
                 // Do nothing if in range, but can't build because of place limit.
                 return;
             }
 
-            var building:Building = GameState.instance.buildNew(tile.x,tile.y,_buildingType);
+            var building:Building = GameState.instance.buildNew(tile.x, tile.y, _buildingType);
             field.addBuilding(building);
             field.setState(new ScrollingFieldState());
         }

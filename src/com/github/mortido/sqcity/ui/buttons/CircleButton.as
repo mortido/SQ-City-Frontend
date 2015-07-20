@@ -28,6 +28,7 @@ package com.github.mortido.sqcity.ui.buttons
 
             super(up, over, down, hitArea);
         }
+
         private var _radius:Number;
 
         public function get radius():Number
