@@ -6,20 +6,20 @@ package com.github.mortido.sqcity
     import com.github.mortido.sqcity.models.GameResources;
     import com.github.mortido.sqcity.resources.IGameResourceManager;
 
-    public final class Game
+    public final class GameState
     {
-        private static var _instance:Game;
+        private static var _instance:GameState;
 
-        public static function get instance():Game
+        public static function get instance():GameState
         {
             if (_instance == null)
             {
-                _instance = new Game();
+                _instance = new GameState();
             }
             return _instance;
         }
 
-        public function Game()
+        public function GameState()
         {
             if (_instance)
             {
@@ -62,14 +62,14 @@ package com.github.mortido.sqcity
             _config = value;
         }
 
-        public function buildNew(type:BuildingType, x:Number, y:Number):Building
+        public function buildNew(x:int, y:int, type:BuildingType):Building
         {
             // TODO: Check resources.
             // TODO: Check place.
             // TODO: Create new building.
             // TODO: Update resources + notify.
             // TODO: Send request (updates ID).
-            return new Building(0, 0, -1, type);
+            return new Building(x, y, type);
         }
 
         public function sellBuilding(building:Building):void
@@ -80,7 +80,7 @@ package com.github.mortido.sqcity
             // TODO: Send request.
         }
 
-        public function moveBuilding(building:Building, newX:Number, newY:Number):void
+        public function moveBuilding(building:Building, newX:int, newY:int):void
         {
             // TODO: Check that building exist.
             // TODO: Check new place (except current building).

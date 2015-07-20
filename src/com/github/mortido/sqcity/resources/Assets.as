@@ -31,6 +31,8 @@ package com.github.mortido.sqcity.resources
             colors["@color/move_btn_text"] = 0xfff5d1;
             colors["@color/sell_btn"] = 0xe0b14c;
             colors["@color/sell_btn_text"] = 0xd1e7ff;
+            colors["@color/guide_sprite_fitted"] = 0x00ff33;
+            colors["@color/guide_sprite_not_fitted"] = 0xff3300;
 
         }
 

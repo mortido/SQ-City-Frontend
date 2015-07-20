@@ -1,11 +1,13 @@
 package com.github.mortido.sqcity.ui
 {
-    import com.github.mortido.sqcity.Game;
+    import com.github.mortido.sqcity.GameState;
     import com.github.mortido.sqcity.models.BuildingType;
     import com.github.mortido.sqcity.resources.Assets;
     import com.github.mortido.sqcity.ui.buttons.BuildingButton;
     import com.github.mortido.sqcity.ui.buttons.CircleButton;
     import com.github.mortido.sqcity.ui.buttons.TextButton;
+    import com.github.mortido.sqcity.ui.gamefield.BuildNewFieldState;
+    import com.github.mortido.sqcity.ui.gamefield.GameField;
     import com.greensock.*;
     import com.greensock.easing.*;
 
@@ -29,10 +31,12 @@ package com.github.mortido.sqcity.ui
         private var toggleButton:SimpleButton;
         private var mainContainer:Sprite;
         private var isOpened:Boolean;
+        private var _gameField:GameField;
 
-        public function ToolBox()
+        public function ToolBox(gameField:GameField)
         {
             super();
+            _gameField = gameField;
             isOpened = false;
 
             // Create main container.
@@ -64,11 +68,12 @@ package com.github.mortido.sqcity.ui
             sellButton.y = ACTION_BTN_OFFSET * 2 + ACTION_BTN_HEIGHT;
             mainContainer.addChild(sellButton);
 
-            var buildingTypes:Dictionary = Game.instance.config.buildingTypes;
+            var buildingTypes:Dictionary = GameState.instance.config.buildingTypes;
             var xIncrement:Number = ACTION_BTN_OFFSET + ACTION_BTN_WIDTH + BUILDING_BTN_OFFSET;
             for (var key:String in buildingTypes)
             {
                 var btn:BuildingButton = new BuildingButton(buildingTypes[key], BUILDING_BTN_WIDTH, BUILDING_BTN_HEIGHT, true);
+                btn.addEventListener(MouseEvent.CLICK, onBuildNewClick,false,0,true);
                 btn.y = ACTION_BTN_OFFSET;
                 btn.x = xIncrement;
                 mainContainer.addChild(btn);
@@ -77,6 +82,12 @@ package com.github.mortido.sqcity.ui
 
             addEventListener(Event.ADDED_TO_STAGE, onAddedToStage, false, 0, true);
             toggleButton.addEventListener(MouseEvent.CLICK, toggleToolbox, false, 0, true);
+        }
+
+        private function onBuildNewClick(event:MouseEvent):void
+        {
+            var btn:BuildingButton = event.currentTarget as BuildingButton;
+            _gameField.setState(new BuildNewFieldState(btn.buildingType));
         }
 
         private function toggleToolbox(event:MouseEvent):void

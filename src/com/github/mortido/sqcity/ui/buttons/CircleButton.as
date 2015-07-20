@@ -1,24 +1,24 @@
 package com.github.mortido.sqcity.ui.buttons
 {
-    import com.github.mortido.sqcity.Game;
+    import com.github.mortido.sqcity.GameState;
     import com.github.mortido.sqcity.resources.IGameResourceManager;
     import com.github.mortido.sqcity.ui.*;
 
-    import flash.display.Bitmap;
     import flash.display.Shape;
     import flash.display.SimpleButton;
+    import flash.display.Sprite;
 
     public class CircleButton extends SimpleButton
     {
         public function CircleButton(radius:Number, imageId:String)
         {
-            var rm:IGameResourceManager = Game.instance.resourceManager;
-            var up:Bitmap = rm.createBitmap(imageId);
+            var rm:IGameResourceManager = GameState.instance.resourceManager;
+            var up:Sprite = rm.createImageSprite(imageId);
 
-            var over:Bitmap = rm.createBitmap(imageId);
+            var over:Sprite = rm.createImageSprite(imageId);
             over.filters = VisualEffects.HOVERED_BUTTON_FILTERS;
 
-            var down:Bitmap = rm.createBitmap(imageId);
+            var down:Sprite = rm.createImageSprite(imageId);
             down.filters = VisualEffects.PRESSED_BUTTON_FILTERS;
 
             var hitArea:Shape = new Shape();

@@ -11,6 +11,7 @@ package com.github.mortido.sqcity.models
             _energy = energy;
             _population = population;
         }
+
         private var _coins:int;
         private var _energy:int;
         private var _population:int;
@@ -36,6 +37,20 @@ package com.github.mortido.sqcity.models
             _energy += energy;
             _population += population;
             dispatchEvent(new Event(Event.CHANGE));
+        }
+
+        /**
+         * Checks that we can apply specified resource modifiers.
+         * @param coins Coins modifier (can be negative if it cost).
+         * @param energy Energy modifier (can be negative if it cost).
+         * @param population Population modifier (can be negative if it cost).
+         * @return true if modifiers can be applied; otherwise - false.
+         */
+        public function checkModifiers(coins:int, energy:int, population:int):Boolean
+        {
+            return _coins + coins >= 0 &&
+                    _energy + energy >= 0 &&
+                    _population + population >= 0;
         }
     }
 }

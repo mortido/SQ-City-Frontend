@@ -1,14 +1,16 @@
 package com.github.mortido.sqcity.resources
 {
-    import com.github.mortido.sqcity.Game;
+    import com.github.mortido.sqcity.GameState;
     import com.github.mortido.sqcity.configuration.ImageInfo;
 
     import flash.display.Bitmap;
     import flash.display.BitmapData;
     import flash.display.Loader;
     import flash.display.LoaderInfo;
+    import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.IOErrorEvent;
+    import flash.geom.Rectangle;
     import flash.net.URLRequest;
     import flash.utils.Dictionary;
 
@@ -21,9 +23,9 @@ package com.github.mortido.sqcity.resources
         private var activeLoaders:Dictionary = new Dictionary();
         private var cache:Dictionary = new Dictionary();
 
-        public function createBitmap(id:String):Bitmap
+        public function createImageSprite(id:String):BitmapWrapper
         {
-            var ii:ImageInfo = Game.instance.config.imageInfos[id];
+            var ii:ImageInfo = GameState.instance.config.imageInfos[id];
 
             if (ii == null)
             {
@@ -32,7 +34,7 @@ package com.github.mortido.sqcity.resources
 
             // Check cache.
             var cached:Boolean = cache[ii.url] != null;
-            var bitmap:Bitmap = cached ? new Bitmap(BitmapData(cache[id])) : new Assets.StubImage();
+            var bitmap:Bitmap = cached ? new Bitmap(BitmapData(cache[ii.url])) : new Assets.StubImage();
 
             // Set reference point.
             bitmap.x = -ii.referenceX;
@@ -40,7 +42,7 @@ package com.github.mortido.sqcity.resources
 
             if (cached)
             {
-                return bitmap;
+                return new BitmapWrapper(bitmap);
             }
 
             // If already downloading - add to queue.
@@ -61,7 +63,7 @@ package com.github.mortido.sqcity.resources
             }
 
             queue.push(bitmap);
-            return bitmap;
+            return new BitmapWrapper(bitmap);
         }
 
         private function completeLoadHandler(event:Event):void

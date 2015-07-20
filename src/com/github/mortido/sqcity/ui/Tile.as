@@ -1,8 +1,8 @@
 package com.github.mortido.sqcity.ui
 {
-    import flash.display.Shape;
+    import flash.display.Sprite;
 
-    public class Tile extends Shape
+    public class Tile extends Sprite
     {
         private static var XDIM:Number = 50;
         private static var YDIM:Number = 25;

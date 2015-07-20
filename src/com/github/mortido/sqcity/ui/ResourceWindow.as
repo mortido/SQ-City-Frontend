@@ -1,6 +1,6 @@
 package com.github.mortido.sqcity.ui
 {
-    import com.github.mortido.sqcity.Game;
+    import com.github.mortido.sqcity.GameState;
     import com.github.mortido.sqcity.models.GameResources;
     import com.github.mortido.sqcity.resources.Assets;
 
@@ -14,7 +14,7 @@ package com.github.mortido.sqcity.ui
         public function ResourceWindow()
         {
             super();
-            var gr:GameResources = Game.instance.resources;
+            var gr:GameResources = GameState.instance.resources;
             label = new ResourceLabel(gr.coins, gr.energy, gr.population);
             label.x = LABEL_OFFSET;
             label.y = LABEL_OFFSET;

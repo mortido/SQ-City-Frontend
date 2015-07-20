@@ -8,9 +8,9 @@ package com.github.mortido.sqcity
     import com.github.mortido.sqcity.models.GameResources;
     import com.github.mortido.sqcity.models.Production;
     import com.github.mortido.sqcity.resources.CachedResourceManager;
-    import com.github.mortido.sqcity.ui.CityField;
     import com.github.mortido.sqcity.ui.ResourceWindow;
     import com.github.mortido.sqcity.ui.ToolBox;
+    import com.github.mortido.sqcity.ui.gamefield.GameField;
 
     import flash.display.Sprite;
     import flash.display.StageAlign;
@@ -29,7 +29,7 @@ package com.github.mortido.sqcity
 
             // TODO: STUB.
             var config:Config = new Config();
-            config.imageInfos["@image/field"] = new ImageInfo("../../../Dropbox/Public/sq/field.jpg", 539+150, 74+100);
+            config.imageInfos["@image/field"] = new ImageInfo("../../../Dropbox/Public/sq/field.jpg", 540 + 150, 75 + 100);
             config.imageInfos["@image/building/factory"] = new ImageInfo("../../../Dropbox/Public/sq/factory.png", 109, 52);
             config.imageInfos["@image/building/house"] = new ImageInfo("../../../Dropbox/Public/sq/house.png", 60, 38);
             config.imageInfos["@image/building/wind_power"] = new ImageInfo("../../../Dropbox/Public/sq/wind_power.png", 52, 76);
@@ -40,9 +40,9 @@ package com.github.mortido.sqcity
             config.buildingTypes["house"] = new BuildingType(-20, -10, 0, 1, 1, "house", new <Production>[new Production(true, 0, 0, 0, 0, 0, 10, 5 * 60, 3)]);
             config.buildingTypes["wind_power"] = new BuildingType(-50, 50, 0, 1, 1, "wind_power", new <Production>[]);
             var buildings:Vector.<Building> = new <Building>[
-                new Building(5,0,1,config.buildingTypes["factory"]),
-                new Building(0,1,2,config.buildingTypes["house"]),
-                new Building(7,6,3,config.buildingTypes["wind_power"])];
+                new Building(3, 3, config.buildingTypes["wind_power"], 3),
+                new Building(1, 1, config.buildingTypes["factory"], 1),
+                new Building(0, 0, config.buildingTypes["house"], 2)];
             var resources:GameResources = new GameResources(100, 100, 100);
 
             onLogin(new LoginEvent(buildings, "TestUser", resources, config, "OnLogin"));
@@ -51,7 +51,7 @@ package com.github.mortido.sqcity
         public function onLogin(e:LoginEvent):void
         {
             // Initialize game singleton.
-            var game:Game = Game.instance;
+            var game:GameState = GameState.instance;
             game.resourceManager = new CachedResourceManager();
             game.config = e.config;
             game.buildings = e.buildings;
@@ -60,7 +60,8 @@ package com.github.mortido.sqcity
             // TODO: Hide login screen.
 
             // Create City Field.
-            addChild(new CityField(stage.stageWidth, stage.stageHeight));
+            var field:GameField = new GameField(stage.stageWidth, stage.stageHeight, GameState.instance.buildings)
+            addChild(field);
 
             // Add resource window.
             addChild(new ResourceWindow());
@@ -68,7 +69,7 @@ package com.github.mortido.sqcity
             // TODO: Add contracts window.
 
             // Add build panel.
-            var tb:ToolBox = new ToolBox();
+            var tb:ToolBox = new ToolBox(field);
             tb.y = stage.stageHeight;
             addChild(tb);
         }
