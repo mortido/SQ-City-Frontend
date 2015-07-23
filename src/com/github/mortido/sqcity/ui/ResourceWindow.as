@@ -5,21 +5,31 @@ package com.github.mortido.sqcity.ui
     import com.github.mortido.sqcity.resources.Assets;
 
     import flash.display.Sprite;
+    import flash.events.Event;
 
     public class ResourceWindow extends Sprite
     {
-        private static var LABEL_OFFSET:Number = 6;
+        private const LABEL_OFFSET:Number = 6;
 
         public function ResourceWindow()
         {
             super();
-            var gr:GameResources = GameState.instance.resources;
-            label = new ResourceLabel(gr.coins, gr.energy, gr.population);
+            gameResource = GameState.instance.resources;
+            label = new ResourceLabel(gameResource.coins, gameResource.energy, gameResource.population);
             label.x = LABEL_OFFSET;
             label.y = LABEL_OFFSET;
             addChild(label);
             update();
+            gameResource.addEventListener(Event.CHANGE, onGameResourcesChange, false, 0, true)
         }
+
+        private function onGameResourcesChange(event:Event):void
+        {
+            label.setValues(gameResource.coins, gameResource.energy, gameResource.population);
+            update();
+        }
+
+        private var gameResource:GameResources;
         private var label:ResourceLabel;
 
         private function update():void

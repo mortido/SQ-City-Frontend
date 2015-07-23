@@ -9,6 +9,7 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
     import com.github.mortido.sqcity.ui.gamefield.GameField;
 
     import flash.display.Sprite;
+    import flash.events.Event;
     import flash.events.MouseEvent;
 
     public class BuildingIsoSprite extends IsoSprite
@@ -22,11 +23,12 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
 
             image = rm.createImageSprite(_model.type.getResourceId());
             var hitArea:Tile = new Tile(_model.type.xSize, _model.type.ySize, 0x000000, 0);
-            hitArea.buttonMode = true;
             hitArea.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true);
             hitArea.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut, false, 0, true);
             hitArea.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown, false, 0, true);
             hitArea.addEventListener(MouseEvent.MOUSE_UP, onMouseUp, false, 0, true);
+            hitArea.addEventListener(MouseEvent.CLICK, onClick, false, 0, true);
+            addEventListener(Event.ENTER_FRAME, onFrame, false, 0, true);
 
             // Don't 'hover' other sprites.
             container.mouseEnabled = false;
@@ -36,6 +38,12 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
 
             sprites = [image, hitArea];
         }
+
+        private function onFrame(event:Event):void
+        {
+            // TODO: update status.
+        }
+
         private var image:Sprite;
         private var _model:Building;
 
@@ -71,8 +79,21 @@ package com.github.mortido.sqcity.ui.gamefield.isosprites
 
         private function onClick(event:MouseEvent):void
         {
-            // TODO: if ready for production - show menu (hide on stage click, and many other cases...)
-            // TODO: if production is ready - harvest.
+            if (_model.type.productions.length == 0)
+            {
+                return;
+            }
+
+            if(_model.currentProduction)
+            {
+
+            }
+            // TODO: if production
+            // TODO:     If production ready
+            // TODO:         harvest
+            // TODO:         if production was isAuto - start it again.
+            // TODO: else
+            // TODO:     show "Chose Production menu"
         }
     }
 }

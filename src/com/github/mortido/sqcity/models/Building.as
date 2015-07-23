@@ -2,9 +2,9 @@ package com.github.mortido.sqcity.models
 {
     public class Building
     {
-        public static var NO_ID:int = -1;
+        public static const NO_ID:int = -1;
 
-        public function Building(x:int, y:int, buildingType:BuildingType, id:int = -1, currentProduction:Production = null, productionFinishTime:Date = null)
+        public function Building(x:int, y:int, buildingType:BuildingType, id:int = NO_ID, currentProduction:Production = null, productionFinishTime:Date = null)
         {
             _x = x;
             _y = y;
@@ -20,6 +20,16 @@ package com.github.mortido.sqcity.models
         private var _type:BuildingType;
         private var _currentProduction:Production;
         private var _productionFinishTime:Date;
+
+        public function set x(value:int):void
+        {
+            _x = value;
+        }
+
+        public function set y(value:int):void
+        {
+            _y = value;
+        }
 
         public function get x():int
         {

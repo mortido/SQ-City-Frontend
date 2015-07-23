@@ -31,6 +31,9 @@ package com.github.mortido.sqcity
         private var _config:Config;
         private var _resources:GameResources;
         private var _buildings:Vector.<Building>;
+        private const COINS_SELL_MODIFIER:Number = 0.5;
+        private const ENERGY_SELL_MODIFIER:Number = 1;
+        private const POPULATION_SELL_MODIFIER:Number = 1;
 
         public function get resources():GameResources
         {
@@ -76,17 +79,27 @@ package com.github.mortido.sqcity
         {
             // TODO: Check resources.
             // TODO: Check place.
-            // TODO: Create new building.
-            // TODO: Update resources + notify.
+
+            // Create new building.
+            var result:Building = new Building(x, y, type);
+            _buildings.push(result);
+
+            // Update resources.
+            resources.add(type.coinsModifier, type.energyModifier, type.populationModifier);
+
             // TODO: Send request (updates ID).
-            return new Building(x, y, type);
+
+            return result;
         }
 
         public function sellBuilding(building:Building):void
         {
             // TODO: Check that building exist.
-            // TODO: Remove from memory.
-            // TODO: Update resources + notify.
+            // Remove from memory.
+            _buildings.splice(_buildings.indexOf(building), 1);
+            // TODO: Update resources.
+            var btype:BuildingType = building.type;
+            _resources.add(-btype.coinsModifier*COINS_SELL_MODIFIER, -btype.energyModifier*ENERGY_SELL_MODIFIER, -btype.populationModifier*POPULATION_SELL_MODIFIER);
             // TODO: Send request.
         }
 
@@ -95,6 +108,8 @@ package com.github.mortido.sqcity
             // TODO: Check that building exist.
             // TODO: Check new place (except current building).
             // TODO: Move building coordinates.
+            building.x = newX;
+            building.y = newY;
             // TODO: Send request.
         }
 

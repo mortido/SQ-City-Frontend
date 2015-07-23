@@ -63,6 +63,7 @@ package com.github.mortido.sqcity.resources
             colors["@color/sell_btn_text"] = 0xd1e7ff;
             colors["@color/guide_sprite_fitted"] = 0x00ff33;
             colors["@color/guide_sprite_not_fitted"] = 0xff3300;
+            colors["@color/edit_overlay"] = 0xcccccc;
 
         }
     }

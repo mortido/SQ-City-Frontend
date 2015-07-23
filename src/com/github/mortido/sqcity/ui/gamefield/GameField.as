@@ -34,25 +34,25 @@ package com.github.mortido.sqcity.ui.gamefield
         {
             super();
 
-            mainScene = new IsoScene();
+            _buildingScene = new IsoScene();
 
             // Add background scene.
-            backScene = new IsoScene();
+            _backScene = new IsoScene();
             var fieldBackground:IsoSprite = new IsoSprite();
             var fieldBackgroundImage:Sprite = GameState.instance.resourceManager.createImageSprite("@image/field");
             fieldBackground.sprites = [fieldBackgroundImage];
-            backScene.addChild(fieldBackground);
+            _backScene.addChild(fieldBackground);
 
             // Show grid in debug only.
             CONFIG::DEBUG {
                 var grid:IsoGrid = new IsoGrid();
                 grid.setGridSize(FIELD_SIZE, FIELD_SIZE, 1);
-                grid.gridlines = new Stroke(1, 0xeeeeee);
+                grid.gridlines = new Stroke(1, 0xffffff, 0.35);
                 grid.showOrigin = false;
                 grid.cellSize = CELL_SIZE;
                 grid.x = -1;
                 grid.y = -1;
-                backScene.addChild(grid);
+                _backScene.addChild(grid);
             }
 
             // Configure isometric view.
@@ -61,8 +61,8 @@ package com.github.mortido.sqcity.ui.gamefield
             _view.showBorder = false;
             _view.panBy(0, height / 2);
 
-            _view.addScene(backScene);
-            _view.addScene(mainScene);
+            _view.addScene(_backScene);
+            _view.addScene(_buildingScene);
             _view.rangeOfMotionTarget = fieldBackgroundImage;
             _view.limitRangeOfMotion = true;
             addChild(_view);
@@ -90,13 +90,13 @@ package com.github.mortido.sqcity.ui.gamefield
          * Isometric scene object.
          * Contains building sprites.
          */
-        private var mainScene:IsoScene;
+        private var _buildingScene:IsoScene;
 
         /**
          * Isometric scene object.
          * Contains background sprites.
          */
-        private var backScene:IsoScene;
+        private var _backScene:IsoScene;
 
         /**
          * Current field state.
@@ -113,11 +113,6 @@ package com.github.mortido.sqcity.ui.gamefield
          * Associate coordinates and buildings sprites.
          */
         private var _placementMatrix:Vector.<Vector.<BuildingIsoSprite>>;
-
-        internal function get placementMatrix():Vector.<Vector.<BuildingIsoSprite>>
-        {
-            return _placementMatrix;
-        }
 
         internal function get view():IsoView
         {
@@ -140,7 +135,7 @@ package com.github.mortido.sqcity.ui.gamefield
             return x >= 0 && x < FIELD_SIZE && y >= 0 && y < FIELD_SIZE;
         }
 
-        internal function addToPlacementMatrix(bs:BuildingIsoSprite):void
+        private function addToPlacementMatrix(bs:BuildingIsoSprite):void
         {
             var building:Building = bs.model;
             for (var i:int = 0; i < building.type.xSize; i++)
@@ -152,7 +147,7 @@ package com.github.mortido.sqcity.ui.gamefield
             }
         }
 
-        internal function removeFromPlacementMatrix(bs:BuildingIsoSprite):void
+        private function removeFromPlacementMatrix(bs:BuildingIsoSprite):void
         {
             var building:Building = bs.model;
             for (var i:int = 0; i < building.type.xSize; i++)
@@ -164,19 +159,24 @@ package com.github.mortido.sqcity.ui.gamefield
             }
         }
 
+        internal function getBuildingByCoordinates(x:int, y:int):Building
+        {
+            return isInRange(x, y) && _placementMatrix[x][y] ? _placementMatrix[x][y].model : null;
+        }
+
         internal function addBuilding(building:Building):void
         {
             var bs:BuildingIsoSprite = new BuildingIsoSprite(building);
             bs.moveTo(building.x * CELL_SIZE, building.y * CELL_SIZE, 0);
             addToPlacementMatrix(bs);
-            mainScene.addChild(bs);
+            _buildingScene.addChild(bs);
         }
 
-        internal function deleteBuilding(building:Building):void
+        internal function removeBuilding(building:Building):void
         {
             var bs:BuildingIsoSprite = _placementMatrix[building.x][building.y];
             removeFromPlacementMatrix(bs);
-            mainScene.removeChild(bs);
+            _buildingScene.removeChild(bs);
         }
 
         internal function globalToTile(stageX:Number, stageY:Number):Point
@@ -190,8 +190,18 @@ package com.github.mortido.sqcity.ui.gamefield
 
         private function onFrame(event:Event):void
         {
-            backScene.render();
-            mainScene.render();
+            _backScene.render();
+            _buildingScene.render();
+        }
+
+        internal function get buildingScene():IsoScene
+        {
+            return _buildingScene;
+        }
+
+        internal function get backScene():IsoScene
+        {
+            return _backScene;
         }
     }
 }

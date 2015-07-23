@@ -14,8 +14,8 @@ package com.github.mortido.sqcity.resources
 
     public class CachedResourceManager implements IGameResourceManager
     {
-        private static var URL_KEY:String = "url";
-        private static var RETRY_KEY:String = "retry";
+        private const URL_KEY:String = "url";
+        private const RETRY_KEY:String = "retry";
 
         private var pendingQueue:Dictionary = new Dictionary();
         private var activeLoaders:Dictionary = new Dictionary();

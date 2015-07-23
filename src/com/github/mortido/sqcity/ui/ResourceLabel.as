@@ -13,7 +13,7 @@ package com.github.mortido.sqcity.ui
 
     public class ResourceLabel extends Sprite
     {
-        private static var DELIMITER:String = " / ";
+        private const DELIMITER:String = " / ";
 
         public function ResourceLabel(coins:int = 0, energy:int = 0, population:int = 0, textSize:Number = 15, showPlus:Boolean = false)
         {
@@ -35,6 +35,7 @@ package com.github.mortido.sqcity.ui
 
             update();
         }
+
         private var _coins:int;
         private var _energy:int;
         private var _textField:FlexTextField;
@@ -44,6 +45,14 @@ package com.github.mortido.sqcity.ui
         private var populationFormat:TextFormat;
         private var _modifiersMode:Boolean;
         private var _population:int;
+
+        public function setValues(coins:int, energy:int, population:int):void
+        {
+            _coins = coins;
+            _energy = energy;
+            _population = population;
+            update();
+        }
 
         public function get coins():int
         {

@@ -4,8 +4,8 @@ package com.github.mortido.sqcity.ui
 
     public class Tile extends Sprite
     {
-        private static var XDIM:Number = 50;
-        private static var YDIM:Number = 25;
+        private const XDIM:Number = 50;
+        private const YDIM:Number = 25;
 
         public function Tile(xSize:uint, ySize:uint, color:uint = 0x000000, alpha:Number = 1.0)
         {
