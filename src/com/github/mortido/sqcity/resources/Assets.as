@@ -45,6 +45,9 @@ package com.github.mortido.sqcity.resources
             strings = new Dictionary();
             strings["@string/move_btn_text"] = "Move";
             strings["@string/sell_btn_text"] = "Sell";
+            strings["@string/production_ready_status"] = "Production is ready!";
+            strings["@string/working_status"] = "Working... ";
+            strings["@string/free_status"] = "[FREE]";
         }
 
         private static function initColors():void
@@ -64,6 +67,9 @@ package com.github.mortido.sqcity.resources
             colors["@color/guide_sprite_fitted"] = 0x00ff33;
             colors["@color/guide_sprite_not_fitted"] = 0xff3300;
             colors["@color/edit_overlay"] = 0xcccccc;
+            colors["@color/status_text"] = 0x000000;
+            colors["@color/status_background"] = 0xe0e0d2;
+            colors["@color/production_buttons_background"] = 0xe0e0d2;
 
         }
     }

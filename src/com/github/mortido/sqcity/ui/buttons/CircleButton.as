@@ -10,7 +10,7 @@ package com.github.mortido.sqcity.ui.buttons
 
     public class CircleButton extends SimpleButton
     {
-        public function CircleButton(radius:Number, imageId:String)
+        public function CircleButton(radius:Number, imageId:String, backgroundColor:Object = null)
         {
             var rm:IGameResourceManager = GameState.instance.resourceManager;
             var up:Sprite = rm.createImageSprite(imageId);
@@ -25,6 +25,21 @@ package com.github.mortido.sqcity.ui.buttons
             hitArea.graphics.beginFill(0x000000);
             hitArea.graphics.drawCircle(0, 0, radius);
             hitArea.graphics.endFill();
+
+            if(backgroundColor!=null)
+            {
+                up.graphics.beginFill(uint(backgroundColor));
+                up.graphics.drawCircle(0, 0, radius);
+                up.graphics.endFill();
+
+                over.graphics.beginFill(uint(backgroundColor));
+                over.graphics.drawCircle(0, 0, radius);
+                over.graphics.endFill();
+
+                down.graphics.beginFill(uint(backgroundColor));
+                down.graphics.drawCircle(0, 0, radius);
+                down.graphics.endFill();
+            }
 
             super(up, over, down, hitArea);
         }
